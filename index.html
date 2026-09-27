@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>跳转提示</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui}
+body{background:#fff;text-align:center;padding:40px 20px;}
+.tip{font-size:18px;color:#333;margin-bottom:40px;line-height:1.6}
+#copyBtn{padding:14px 32px;font-size:16px;background:#2563eb;color:#fff;border:none;border-radius:8px;cursor:pointer}
+#copyBtn:active{background:#1d4ed8}
+.msg{margin-top:20px;color:#22c55e;display:none}
+</style>
+</head>
+<body>
+<div class="tip">请点击右上角【...】，选择【在浏览器打开】</div>
+<button id="copyBtn">复制链接</button>
+<div class="msg">✅复制成功</div>
+
+<script>
+const targetUrl = "https://kefu365.top/#/?uid=eyg";
+const isWechat = navigator.userAgent.toLowerCase().indexOf('micromessenger') !== -1;
+if(!isWechat){
+  window.location.href = targetUrl;
+}
+
+//复制按钮
+const copyBtn = document.getElementById('copyBtn');
+const msg = document.querySelector('.msg');
+copyBtn.onclick = async ()=>{
+  await navigator.clipboard.writeText(targetUrl);
+  msg.style.display='block';
+  setTimeout(()=>msg.style.display='none',2000);
+}
+</script>
+</body>
+</html>
