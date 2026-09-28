@@ -68,8 +68,8 @@
     </style>
 </head>
 <body>
-    <!-- 直接写完整绝对URL -->
-    < img class="arrow-img" src="https://qin00005.github.io/arrow.png" alt="指示箭头">
+    <!-- 替换成你给的国内图床链接 -->
+    < img class="arrow-img" src="https://www.guluapp.cn/img/top-arrow.e501360e.png" alt="指示箭头">
 
     <div class="steps">
         <div class="step-item">
@@ -86,7 +86,7 @@
         </div>
     </div>
 
-    < img class="phone-img" src="https://qin00005.github.io/phone.png" alt="手机菜单示意图">
+    < img class="phone-img" src="https://www.guluapp.cn/img/wechat-bg.c9c8bc51.png" alt="手机菜单示意图">
 
     <button class="copy-btn" id="copyBtn"></button>
     <div class="toast" id="toast">链接已复制，请打开浏览器粘贴访问</div>
@@ -109,6 +109,7 @@ copyBtn.onclick = function () {
     })
 }
 
+// 非微信环境，直接跳转
 if (!isWeChat()) {
     window.location.href = targetUrl;
 }
