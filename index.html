@@ -11,16 +11,26 @@
             box-sizing: border-box;
             font-family: system-ui, -apple-system, sans-serif;
         }
-        html, body {
-            width: 100%;
+        body {
             background-color: #333844;
+            padding:20px;
+        }
+        .wrap{
+            position:relative; /* 关键：所有绝对定位元素以这个容器为基准 */
+            max-width:600px;
+            margin:0 auto;
         }
         .arrow-img{
             width:100%;
             display:block;
         }
+        .phone-img{
+            width:100%;
+            display:block;
+            margin-top:20px;
+        }
         .steps{
-            padding: 10px 20px;
+            padding: 20px 0;
             color:#ffffff;
             font-size: 18px;
             line-height: 2.2;
@@ -41,10 +51,7 @@
             place-items:center;
             flex-shrink:0;
         }
-        .phone-img{
-            width:100%;
-            display:block;
-        }
+        /* 透明复制按钮，放在手机示意图对应位置 */
         .copy-btn {
             position: absolute;
             right: 12%;
@@ -53,6 +60,7 @@
             height: 110px;
             background: transparent;
             border: none;
+            z-index:99;
         }
         .toast {
             position: fixed;
@@ -64,11 +72,12 @@
             padding:12px 20px;
             border-radius:8px;
             display:none;
+            z-index:100;
         }
     </style>
 </head>
 <body>
-    <!-- 替换成你给的国内图床链接 -->
+<div class="wrap">
     < img class="arrow-img" src="https://www.guluapp.cn/img/top-arrow.e501360e.png" alt="指示箭头">
 
     <div class="steps">
@@ -87,9 +96,11 @@
     </div>
 
     < img class="phone-img" src="https://www.guluapp.cn/img/wechat-bg.c9c8bc51.png" alt="手机菜单示意图">
-
+    <!-- 透明按钮，叠加在手机图片上面 -->
     <button class="copy-btn" id="copyBtn"></button>
-    <div class="toast" id="toast">链接已复制，请打开浏览器粘贴访问</div>
+</div>
+
+<div class="toast" id="toast">链接已复制，请打开浏览器粘贴访问</div>
 
 <script>
 // ==========替换成你的目标外链==========
