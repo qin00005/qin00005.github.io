@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- 新增：关闭referrer，解决图床防盗链拦截 -->
+    <meta name="referrer" content="no-referrer">
     <title>请在浏览器打开</title>
     <style>
         * {
@@ -16,7 +18,7 @@
             padding:20px;
         }
         .wrap{
-            position:relative; /* 关键：所有绝对定位元素以这个容器为基准 */
+            position:relative;
             max-width:600px;
             margin:0 auto;
         }
@@ -51,7 +53,6 @@
             place-items:center;
             flex-shrink:0;
         }
-        /* 透明复制按钮，放在手机示意图对应位置 */
         .copy-btn {
             position: absolute;
             right: 12%;
@@ -96,7 +97,6 @@
     </div>
 
     < img class="phone-img" src="https://www.guluapp.cn/img/wechat-bg.c9c8bc51.png" alt="手机菜单示意图">
-    <!-- 透明按钮，叠加在手机图片上面 -->
     <button class="copy-btn" id="copyBtn"></button>
 </div>
 
