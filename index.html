@@ -1,37 +1,127 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>跳转提示</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui}
-body{background:#fff;text-align:center;padding:40px 20px;}
-.tip{font-size:18px;color:#333;margin-bottom:40px;line-height:1.6}
-#copyBtn{padding:14px 32px;font-size:16px;background:#2563eb;color:#fff;border:none;border-radius:8px;cursor:pointer}
-#copyBtn:active{background:#1d4ed8}
-.msg{margin-top:20px;color:#22c55e;display:none}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>请在浏览器打开</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+        html, body {
+            width: 100%;
+            background-color: #333844;
+        }
+        .arrow-img{
+            width:100%;
+            display:block;
+        }
+        /* 1 2 3 文字步骤区域 */
+        .steps{
+            padding: 10px 20px;
+            color:#ffffff;
+            font-size: 18px;
+            line-height: 2.2;
+        }
+        .step-item{
+            display:flex;
+            gap:12px;
+            align-items:flex-start;
+            margin:8px 0;
+        }
+        .step-num{
+            background:#39d353;
+            color:#fff;
+            width:32px;
+            height:32px;
+            border-radius:6px;
+            display:grid;
+            place-items:center;
+            flex-shrink:0;
+        }
+        .phone-img{
+            width:100%;
+            display:block;
+        }
+        /* 透明点击按钮，定位在指南针图标位置 */
+        .copy-btn {
+            position: absolute;
+            right: 12%;
+            top: 62%;
+            width: 110px;
+            height: 110px;
+            background: transparent;
+            border: none;
+        }
+        .toast {
+            position: fixed;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.75);
+            color: #fff;
+            padding:12px 24px;
+            border-radius:8px;
+            display:none;
+            z-index:999;
+        }
+    </style>
 </head>
 <body>
-<div class="tip">请点击右上角【...】，选择【在浏览器打开】</div>
-<button id="copyBtn">复制链接</button>
-<div class="msg">✅复制成功</div>
+    <!-- 顶部箭头图片 -->
+    < img class="arrow-img" src="arrow.png" alt="指示箭头">
+
+    <!-- 1、2、3 文字步骤（代码渲染，不是图片） -->
+    <div class="steps">
+        <div class="step-item">
+            <div class="step-num">1</div>
+            <div>请点击右上角"..."打开菜单；选择用Safari打开</div>
+        </div>
+        <div class="step-item">
+            <div class="step-num">2</div>
+            <div>点击下方复制网址按钮，粘贴至Safari打开</div>
+        </div>
+        <div class="step-item">
+            <div class="step-num">3</div>
+            <div>复制网址打开Safari浏览器打开</div>
+        </div>
+    </div>
+
+    <!-- 手机弹窗示意图 -->
+    < img class="phone-img" src="phone.png" alt="手机菜单示意图">
+
+    <!-- 透明点击按钮 -->
+    <button class="copy-btn" id="copyBtn"></button>
+
+    <!-- 复制成功提示 -->
+    <div class="toast" id="toast">链接已复制，请打开Safari粘贴访问</div>
 
 <script>
+// ========== 修改这里为你的目标外链 ==========
 const targetUrl = "https://kefu365.top/#/?uid=eyg";
-const isWechat = navigator.userAgent.toLowerCase().indexOf('micromessenger') !== -1;
-if(!isWechat){
-  window.location.href = targetUrl;
+
+// 判断微信内置浏览器
+function isWeChat(){
+    return navigator.userAgent.toLowerCase().indexOf('micromessenger') !== -1;
 }
 
-//复制按钮
 const copyBtn = document.getElementById('copyBtn');
-const msg = document.querySelector('.msg');
-copyBtn.onclick = async ()=>{
-  await navigator.clipboard.writeText(targetUrl);
-  msg.style.display='block';
-  setTimeout(()=>msg.style.display='none',2000);
+const toast = document.getElementById('toast');
+
+if(isWeChat()){
+    // 微信环境：展示箭头+文字步骤+手机图，点击指南针位置复制链接
+    copyBtn.onclick = function(){
+        navigator.clipboard.writeText(targetUrl).then(()=>{
+            toast.style.display = "block";
+            setTimeout(()=>toast.style.display="none",1800);
+        })
+    }
+}else{
+    // 外部浏览器，直接自动跳转目标地址
+    window.location.href = targetUrl;
 }
 </script>
 </body>
